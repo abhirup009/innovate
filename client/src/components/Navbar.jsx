@@ -60,9 +60,11 @@ const Navbar = () => {
                 key={link.name}
                 className={`flex p-4 ${isActive === link.name && 'bg-[#3a3a43]'}`}
                 onClick={() => {
-                  setIsActive(link.name);
-                  setToggleDrawer(false);
-                  navigate(link.link);
+                  if (!link.disabled) {
+                    setIsActive(link.name);
+                    setToggleDrawer(false);
+                    navigate(link.link);
+                  }
                 }}
               >
                 <img
@@ -83,7 +85,10 @@ const Navbar = () => {
               title={address ? 'Create a campaign' : 'Connect'}
               styles={address ? 'bg-[#1dc071]' : 'bg-[#8c6dfd]'}
               handleClick={() => {
-                if (address) navigate('create-campaign')
+                if (address) {
+                  navigate('create-campaign')
+                  console.log(`address --> ${address}`)
+                }
                 else connect();
               }}
             />
